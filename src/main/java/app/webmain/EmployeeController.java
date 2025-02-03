@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import app.service.EmpSerImp;
 @Component("idk")
 @RestController
 @RequestMapping("/api/emp")
+@CrossOrigin(origins = {"http://localhost:8080"})
 public class EmployeeController {
 	
 	@Autowired
@@ -37,7 +39,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/showall")
-	public ResponseEntity<ArrayList<EmployeeDTO>> getEmpById(){
+	public ResponseEntity<ArrayList<EmployeeDTO>> getAllEmps(){
 		var emps = empSer.getAllEmployees();
 		return ResponseEntity.status(HttpStatus.OK).body(emps);
 	}
@@ -54,4 +56,9 @@ public class EmployeeController {
 		return ResponseEntity.status(HttpStatus.OK).body(emp);
 	}
 	
+	@GetMapping("/query/{ex}")
+	public ResponseEntity<ArrayList<EmployeeDTO>> queryEmps(@PathVariable String ex){
+		var emps = empSer.searchEmployees(ex);
+		return ResponseEntity.status(HttpStatus.OK).body(emps);
+	}
 }
