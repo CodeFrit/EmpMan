@@ -1,6 +1,5 @@
 package app.service;
 import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import app.entity.Employee;
@@ -50,4 +49,13 @@ public class EmpSerImp implements EmployeeService {
 		return EmployeeMapper.mapToEmployeeDTO(del);
 	}
 
+	@Override
+	public ArrayList<EmployeeDTO> searchEmployees(String ex) {
+		var emps = (ArrayList<Employee>) emprepo.findByFname(ex);
+		if(emps.size()>0) {
+			return EmployeeMapper.mapToEmployeeDTOList(emps);
+		}else {
+			throw new EmployeeException("No employees found");
+		}
+	}
 }
