@@ -11,4 +11,5 @@ public interface EmployeeService {
 	ArrayList<EmployeeDTO> getAllEmployees();
 	EmployeeDTO updateEmployee(EmployeeDTO empDto, long id);
 	EmployeeDTO deleteEmployee(long id);
+	ArrayList<EmployeeDTO> searchEmployees(String ex);
 }
